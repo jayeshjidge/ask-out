@@ -128,4 +128,4 @@ Created with ❤️ for asking someone special out in the most beautiful way pos
 ---
 
 **Repository:** https://github.com/jayeshjidge/ask-out
-**Author:** RS Lab Hub
+**Author:** Jayesh Jidge
