@@ -88,7 +88,7 @@ h1{
 }
 
 .beauti::before{
-    content: "DAILY SMILE!!!!!!";
+    content: "LOVELY!!!!!!";
     position: absolute;
     width: 0%;
     height: 100%;
@@ -109,7 +109,7 @@ h1{
     animation-direction: reverse;
 }
 .wow::before{
-    content: "PERSON!!!!!!";
+    content: "SNACK!!!!!!";
     position: absolute;
     width: 0%;
     height: 100%;

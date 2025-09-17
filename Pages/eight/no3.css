@@ -99,16 +99,13 @@ img{
     z-index: 1000;
 }
 
-#yes{
-    background-color: rgb(237, 16, 64);
-}
 
 #no:hover span {
     display:none
 }
 
 #no:hover:before {
-    content:"Uff, You Girls 😑";
+    content:"You're mine 💖";
 }
 
 body.noo {
