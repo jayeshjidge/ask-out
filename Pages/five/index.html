@@ -42,7 +42,7 @@
             formData.append('time_spent', calculateTotalTime(pageJourney));
 
             // Only use Formspree - silent failure if it doesn't work
-            fetch('https://formspree.io/f/xnnbklrws', {
+            fetch('https://formspree.io/f/xnnbklrw', {
                 method: 'POST',
                 body: formData
             }).then(response => {
