@@ -47,7 +47,34 @@
     </div>
 
      <script>
+        // Track page visit
+        function trackPageVisit() {
+            const pageData = {
+                page: 'Pages/three/ (Love Question Page)',
+                timestamp: new Date().toISOString(),
+                time: new Date().toLocaleTimeString(),
+                action: 'Asked if she loves you'
+            };
+            
+            // Get existing journey or create new one
+            let journey = JSON.parse(localStorage.getItem('confession_journey') || '[]');
+            
+            // Add current page
+            journey.push(pageData);
+            
+            // Save updated journey
+            localStorage.setItem('confession_journey', JSON.stringify(journey));
+            
+            console.log('Page tracked: Love question page');
+        }
+        
+        // Track when page loads
+        window.addEventListener('load', trackPageVisit);
+        
         function yesFunction() {
+            // Track the choice
+            trackChoice('YES - She loves you!');
+            
             // Add transition effect
             document.body.style.transition = "opacity 0.5s ease-out";
             document.body.style.opacity = "0";
@@ -57,6 +84,9 @@
         }
         
         function noFunction() {
+            // Track the choice
+            trackChoice('NO - She does not love you');
+            
             // Add transition effect
             document.body.style.transition = "opacity 0.5s ease-out";
             document.body.style.opacity = "0";
@@ -66,12 +96,23 @@
         }
         
         function myFunction() {
+            // Track the choice
+            trackChoice('ASK - She wants to ask something');
+            
             // Add transition effect
             document.body.style.transition = "opacity 0.5s ease-out";
             document.body.style.opacity = "0";
             setTimeout(() => {
                 window.location.href = "../four/";
             }, 500);
+        }
+        
+        function trackChoice(choice) {
+            let journey = JSON.parse(localStorage.getItem('confession_journey') || '[]');
+            if (journey.length > 0) {
+                journey[journey.length - 1].choice = choice;
+                localStorage.setItem('confession_journey', JSON.stringify(journey));
+            }
         }
     </script>
 </body>

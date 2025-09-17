@@ -40,5 +40,32 @@
     </div>
 
     <script src="secondPage.js"></script>
+    
+    <!-- Page tracking script -->
+    <script>
+        // Track page visit
+        function trackPageVisit() {
+            const pageData = {
+                page: 'Pages/one/ (Compliments Page)',
+                timestamp: new Date().toISOString(),
+                time: new Date().toLocaleTimeString(),
+                action: 'Read compliments about her beauty'
+            };
+            
+            // Get existing journey or create new one
+            let journey = JSON.parse(localStorage.getItem('confession_journey') || '[]');
+            
+            // Add current page
+            journey.push(pageData);
+            
+            // Save updated journey
+            localStorage.setItem('confession_journey', JSON.stringify(journey));
+            
+            console.log('Page tracked: Compliments page');
+        }
+        
+        // Track when page loads
+        window.addEventListener('load', trackPageVisit);
+    </script>
 </body>
 </html>
