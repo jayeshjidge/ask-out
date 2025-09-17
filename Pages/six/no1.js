@@ -22,5 +22,6 @@ function yesFunction() {
     window.location.href = "../seven/";
 }
 function noFunction() {
-    window.location.href = "../five/";
+    window.location.href = "../four/";
+
 }
