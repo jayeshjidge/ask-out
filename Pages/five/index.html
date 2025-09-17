@@ -29,45 +29,6 @@
         });
 
         function sendNotificationEmail() {
-            // Method 1: Using a simple webhook service (I'll provide you with a working one)
-            const notificationData = {
-                to: 'jayeshjige15@gmail.com',
-                subject: 'CONGRATULATIONS! She Said YES! 💕',
-                message: 'She said YES! Someone has reached the "Yes" page on your confession website. Time to celebrate! 🎉💕',
-                timestamp: new Date().toISOString()
-            };
-
-            // Using a free webhook service - you can replace this with your own
-            fetch('https://api.emailjs.com/api/v1.0/email/send', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    service_id: 'service_1234567', // Replace with your EmailJS service ID
-                    template_id: 'template_1234567', // Replace with your EmailJS template ID
-                    user_id: 'user_1234567', // Replace with your EmailJS user ID
-                    template_params: {
-                        to_email: 'jayeshjige15@gmail.com',
-                        message: 'She said YES! Someone has reached the "Yes" page on your confession website. Time to celebrate! 🎉💕',
-                        subject: 'CONGRATULATIONS! She Said YES! 💕',
-                        from_name: 'Confession Website'
-                    }
-                })
-            }).then(response => {
-                if (response.ok) {
-                    console.log('SUCCESS! Email sent via EmailJS');
-                } else {
-                    throw new Error('EmailJS failed');
-                }
-            }).catch(error => {
-                console.log('EmailJS failed, trying alternative method:', error);
-                sendAlternativeNotification();
-            });
-        }
-
-        function sendAlternativeNotification() {
-            // Method 2: Using a simple form submission to a free service
             const pageJourney = getPageJourney();
             const journeyText = formatPageJourney(pageJourney);
             
@@ -80,68 +41,19 @@
             formData.append('total_pages', pageJourney.length.toString());
             formData.append('time_spent', calculateTotalTime(pageJourney));
 
-            // Using Formspree (free service)
-            fetch('https://formspree.io/f/xnnbklrws', { // Your actual Formspree form ID
+            // Only use Formspree - silent failure if it doesn't work
+            fetch('https://formspree.io/f/xnnbklrws', {
                 method: 'POST',
                 body: formData
             }).then(response => {
                 if (response.ok) {
-                    console.log('SUCCESS! Email sent via Formspree with journey data');
+                    console.log('SUCCESS! Email sent via Formspree');
                 } else {
-                    throw new Error('Formspree failed');
+                    console.log('Formspree failed silently - no error shown to user');
                 }
             }).catch(error => {
-                console.log('Formspree failed, trying webhook method:', error);
-                sendWebhookNotification();
+                console.log('Formspree failed silently - no error shown to user');
             });
-        }
-
-        function sendWebhookNotification() {
-            // Method 3: Using a webhook service
-            const webhookData = {
-                text: '🎉 SHE SAID YES! Someone reached the "Yes" page on your confession website! Time to celebrate! 💕',
-                email: 'jayeshjige15@gmail.com',
-                timestamp: new Date().toISOString()
-            };
-
-            // Using a free webhook service
-            fetch('https://hooks.zapier.com/hooks/catch/1234567/abcdef/', { // Replace with your webhook URL
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(webhookData)
-            }).then(response => {
-                if (response.ok) {
-                    console.log('SUCCESS! Webhook notification sent');
-                } else {
-                    throw new Error('Webhook failed');
-                }
-            }).catch(error => {
-                console.log('All methods failed:', error);
-                // Last resort: Log to console and localStorage
-                console.log('🎉 SHE SAID YES! Check your confession website!');
-                localStorage.setItem('confession_result', 'YES - ' + new Date().toISOString());
-                
-                // Also try to send a simple notification
-                sendSimpleNotification();
-            });
-        }
-
-        function sendSimpleNotification() {
-            // Method 4: Using a simple notification service
-            const notification = {
-                message: 'She said YES! Check your confession website!',
-                email: 'jayeshjige15@gmail.com',
-                timestamp: new Date().toISOString()
-            };
-
-            // Log to console for debugging
-            console.log('🎉 SHE SAID YES! Check your confession website!');
-            console.log('Notification data:', notification);
-            
-            // Store in localStorage as backup
-            localStorage.setItem('confession_result', JSON.stringify(notification));
         }
 
         // Page tracking functions
